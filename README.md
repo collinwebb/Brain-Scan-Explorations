@@ -11,3 +11,5 @@ I'm also a searcher after truth, and some of the best ways we humans have found 
 I'm planning to explore what scripting languages I can use to explore the different aspects of brain scans I take. I suspect I will end up using Python for this. Then I'm going to start making a few simple scripts to look at what is going on with my brain when I'm doing different things. These scripts may turn into a generalized program to explore brain activity.
 
 I also need to keep taking more scans and collecting more data. I will start with me, but then I will move onto scans from other people and see if there is anything I can learn about how neural oscillations work.
+
+I'm going to start with [pyMuse](https://github.com/PolyCortex/pyMuse), make a smol script to look at some differences in brain wave activity for different activities or before and after reading from muse guided mindfulness practice. Once I get that working, I may start explore more complex code bases and see what I can do with tools like [mne-python](https://github.com/mne-tools/mne-python).
