@@ -20,8 +20,22 @@ afterPracticeFile = filePath + "Post Muse 5 min v4.2_Muse-BE53_2019-01-26--15-56
 # channels or annotate the data to get at least more detailed readings.
 # TODO 2 automate based on Path automation above.
 
-beforePracticeRawData = read_raw_edf(beforePracticeFile, stim_channel=False, preload=True)
-afterPracticeRawData = read_raw_edf(afterPracticeFile, stim_channel=False, preload=True)
+beforePracticeRawData = read_raw_edf(beforePracticeFile, stim_channel='auto', preload=True)
+afterPracticeRawData = read_raw_edf(afterPracticeFile, stim_channel='auto', preload=True)
 
-# print raw data info to see what is going on.
-print(beforePracticeRawData.info)
+# (optional exploratory) print raw data info to see what is going on.
+# print(beforePracticeRawData.info)
+
+#############
+# Read Data #
+#############
+
+#
+#TODO 1: make this a class that can be called with more general parameters and compared.
+#TODO 2: allow for further refining based on events ====>> raw.find_edf_events()
+# (no events used in initial test data).
+
+sfreq = beforePracticeRawData.info["sfreq"]
+pickedChannels = beforePracticeRawData.pick_types(eeg=True, stim=False, exclude='bads')
+
+print(pickedChannels)
