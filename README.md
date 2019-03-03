@@ -1,5 +1,9 @@
 ## Brain Scan Explorations
 
+### Running the code
+
+#### Setup
+
 To install run:
 
 First make sure you have the latest version of Anaconda (this was done with version 4.6.7), then run the following:
@@ -10,7 +14,26 @@ conda activate mne
 pip install --upgrade "pyqt5>=5.10" # on mac only
 ```
 
-### Introduction
+When going back to the project with Anaconda already set up, just use:
+
+```
+conda activate mne
+```
+
+#### Run
+
+```
+python exploations.py
+```
+
+#### deactivate
+
+To get back to base conda environment:
+```
+conda deactivate
+```
+
+### Background
 
 I got an original Muse headband (v2, 2016) and have used it some for my mindfulness practice. Most of my mindfulness practice has been attempts to be present in the moment to moment of every day life. There is a human bias called the [context effect and mood-congruent memory bias](https://en.wikipedia.org/wiki/Cue-dependent_forgetting) where we can't remember things when we are in a different context, or it is easier to remember something when it is congruent with our current mood. So if we do all our mindfulness practice sitting down and being quite, we won't remember to pay attention to ourselves and our surroundings when something else is happening in life. This is at least true for me, so I practice all the time, as often as I can remember in all cirumstances.
 
