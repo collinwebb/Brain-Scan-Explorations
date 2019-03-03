@@ -1,6 +1,9 @@
 ## Brain Scan Explorations
 
 To install run:
+
+First make sure you have the latest version of Anaconda (this was done with version 4.6.7), then run the following:
+
 ```
 conda env create -f environment.yml
 conda activate mne
@@ -20,3 +23,8 @@ I'm planning to explore what scripting languages I can use to explore the differ
 I also need to keep taking more scans and collecting more data. I will start with me, but then I will move onto scans from other people and see if there is anything I can learn about how neural oscillations work.
 
 I'm going to start with [mne-python](https://github.com/mne-tools/mne-python). I tried looking at some simpler tools, but they didn't have good enough documentation to follow easily or had issues installing dependencies. mne-python also uses conda!! So, I don't have to deal with package issues.
+
+
+### Todo
+
+- script installation
