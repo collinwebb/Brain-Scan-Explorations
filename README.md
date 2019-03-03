@@ -2,7 +2,9 @@
 
 To install run:
 ```
-pip3.7 install -r requirements.txt
+conda env create -f environment.yml
+conda activate mne
+pip install --upgrade "pyqt5>=5.10" # on mac only
 ```
 
 ### Introduction
@@ -17,4 +19,4 @@ I'm planning to explore what scripting languages I can use to explore the differ
 
 I also need to keep taking more scans and collecting more data. I will start with me, but then I will move onto scans from other people and see if there is anything I can learn about how neural oscillations work.
 
-I'm going to start with [PyMUSE](https://github.com/ismaelpessa/PyMUSE) (tried [pyMuse](https://github.com/PolyCortex/pyMuse) but it had issues with it's requirements), make a smol script to look at some differences in brain wave activity for different activities or before and after reading from muse guided mindfulness practice. Once I get that working, I may start explore more complex code bases and see what I can do with tools like [mne-python](https://github.com/mne-tools/mne-python).
+I'm going to start with [mne-python](https://github.com/mne-tools/mne-python). I tried looking at some simpler tools, but they didn't have good enough documentation to follow easily or had issues installing dependencies. mne-python also uses conda!! So, I don't have to deal with package issues.
