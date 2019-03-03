@@ -1,5 +1,10 @@
 ## Brain Scan Explorations
 
+To install run:
+```
+pip3.7 install -r requirements.txt
+```
+
 ### Introduction
 
 I got an original Muse headband (v2, 2016) and have used it some for my mindfulness practice. Most of my mindfulness practice has been attempts to be present in the moment to moment of every day life. There is a human bias called the [context effect and mood-congruent memory bias](https://en.wikipedia.org/wiki/Cue-dependent_forgetting) where we can't remember things when we are in a different context, or it is easier to remember something when it is congruent with our current mood. So if we do all our mindfulness practice sitting down and being quite, we won't remember to pay attention to ourselves and our surroundings when something else is happening in life. This is at least true for me, so I practice all the time, as often as I can remember in all cirumstances.
