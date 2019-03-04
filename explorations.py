@@ -2,6 +2,7 @@
 write things!!
 """
 
+from mne import Epochs, find_events
 from mne.io import read_raw_edf
 
 ###############
@@ -20,22 +21,33 @@ afterPracticeFile = filePath + "Post Muse 5 min v4.2_Muse-BE53_2019-01-26--15-56
 # channels or annotate the data to get at least more detailed readings.
 # TODO 2 automate based on Path automation above.
 
-beforePracticeRawData = read_raw_edf(beforePracticeFile, stim_channel='auto', preload=True)
-afterPracticeRawData = read_raw_edf(afterPracticeFile, stim_channel='auto', preload=True)
+beforePracticeRawData = read_raw_edf(beforePracticeFile, stim_channel="auto", preload=True)
+afterPracticeRawData = read_raw_edf(afterPracticeFile, stim_channel="auto", preload=True)
 
-# (optional exploratory) print raw data info to see what is going on.
-# print(beforePracticeRawData.info)
+# this is just for beforePracticeRawData
 
 #############
 # Read Data #
 #############
 
-#
-#TODO 1: make this a class that can be called with more general parameters and compared.
-#TODO 2: allow for further refining based on events ====>> raw.find_edf_events()
-# (no events used in initial test data).
+beforePracticeRawData = beforePracticeRawData.pick_types(eeg=True, exclude='bads')
 
-sfreq = beforePracticeRawData.info["sfreq"]
-pickedChannels = beforePracticeRawData.pick_types(eeg=True, stim=False, exclude='bads')
+sampleFrequency = beforePracticeRawData.info["sfreq"]
 
-print(pickedChannels)
+bands=[
+    (.5, 4, "Delta"),
+    (4, 8, "Theta"),
+    (8, 12, "Alpha"),
+    (12, 30, "Beta"),
+    (30, 100, "Gamma")
+]
+
+for fmin, fmax, name in bands:
+    filteredData = beforePracticeRawData.filter(fmin, fmax)
+    print(fmin, fmax, name)
+
+    flattenedData = [y for x in filteredData.get_data() for y in x]
+    averageData = sum(flattenedData) / float(len(flattenedData))
+    print(averageData)
+
+    # filteredData.plot_psd()
