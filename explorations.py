@@ -30,24 +30,53 @@ afterPracticeRawData = read_raw_edf(afterPracticeFile, stim_channel="auto", prel
 # Read Data #
 #############
 
-beforePracticeRawData = beforePracticeRawData.pick_types(eeg=True, exclude='bads')
+class BasicBrainData(object):
+    """
+    description TODO: write
 
-sampleFrequency = beforePracticeRawData.info["sfreq"]
+    Attributes (two raw edf files to compare):
+        before: edf file from readings *before* some event
+        after: edf file from readings *after* some event
+    """
 
-bands=[
-    (.5, 4, "Delta"),
-    (4, 8, "Theta"),
-    (8, 12, "Alpha"),
-    (12, 30, "Beta"),
-    (30, 100, "Gamma")
-]
+    def __init__(self, before, after):
+        """Returns a BasicBrainData Object with before and after attributes"""
+        self.before = before.pick_types(eeg=True, exclude='bads')
+        self.after = after.pick_types(eeg=True, exclude='bads')
+        #define brain wave bands
+        self.bands=[
+            (.5, 4, "Delta"),
+            (4, 8, "Theta"),
+            (8, 12, "Alpha"),
+            (12, 30, "Beta"),
+            (30, 100, "Gamma")
+        ]
 
-for fmin, fmax, name in bands:
-    filteredData = beforePracticeRawData.filter(fmin, fmax)
-    print(fmin, fmax, name)
+    def getAveragesOverBrainWaves(self, data):
+        # initialize dictionary
+        self.averagedData = {
+        "Delta": 0,
+        "Theta": 0,
+        "Alpha": 0,
+        "Beta": 0,
+        "Gamma": 0
+        }
 
-    flattenedData = [y for x in filteredData.get_data() for y in x]
-    averageData = sum(flattenedData) / float(len(flattenedData))
-    print(averageData)
+        # iterate over bands to find the average volts per band over the whole time
+        for fmin, fmax, name in self.bands:
+            filteredData = data.filter(fmin, fmax)
+            flattenedData = [y for x in filteredData.get_data() for y in x]
+            average = sum(flattenedData) / float(len(flattenedData))
+            self.averagedData[name] = average
 
-    # filteredData.plot_psd()
+        return self.averagedData
+
+
+    def compare(self):
+        beforeDataAveraged = self.getAveragesOverBrainWaves(self.before)
+        afterDataAveraged = self.getAveragesOverBrainWaves(self.after)
+        print(beforeDataAveraged, afterDataAveraged)
+
+
+mindfulnessData = BasicBrainData(beforePracticeRawData, afterPracticeRawData)
+mindfulnessData.compare()
