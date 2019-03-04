@@ -11,6 +11,11 @@ and analyze them in a few ways.
 from mne import Epochs, find_events, set_log_level
 from mne.io import read_raw_edf
 
+import pprint
+pp = pprint.PrettyPrinter()
+
+from collections import defaultdict
+
 # set logging level
 set_log_level(verbose="WARNING")
 
@@ -69,14 +74,6 @@ class BasicBrainData(object):
             (12, 30, "Beta"),
             (30, 100, "Gamma")
         ]
-        # initialize dictionary
-        self.averagedData = {
-            "Delta": 0,
-            "Theta": 0,
-            "Alpha": 0,
-            "Beta": 0,
-            "Gamma": 0
-        }
 
     def getAveragesOverBrainWaves(self, data):
         """iterate over bands to find the average volts per band over time."""
@@ -84,20 +81,36 @@ class BasicBrainData(object):
         # TODO 2: evaluate this agaist known good analysis.
         # TODO 3: try a version with this split up into 1hz bands from .5 to 100.5
         #         and see if the Delta, Theta, etc bands make sense as constructs.
+        # initialize dictionary
+        averagedData = {
+            "Delta": 0,
+            "Theta": 0,
+            "Alpha": 0,
+            "Beta": 0,
+            "Gamma": 0
+        }
         for fmin, fmax, name in self.bands:
             filteredData = data.filter(fmin, fmax, verbose=None)
             flattenedData = [y for x in filteredData.get_data() for y in x]
             average = sum(flattenedData) / float(len(flattenedData))
-            self.averagedData[name] = average
+            averagedData[name] = average
 
-        return self.averagedData
+        return averagedData
 
     def compareBeforeAfter(self):
         """compares two data sets and returns data plus diffrenes"""
+        compareData = defaultdict(list)
         beforeDataAveraged = self.getAveragesOverBrainWaves(self.before)
         afterDataAveraged = self.getAveragesOverBrainWaves(self.after)
-        #MAKE DIFFERENCES
-        print(beforeDataAveraged, afterDataAveraged)
+        #TODO: break printing out into seperate function; make pretty
+        for data in beforeDataAveraged, afterDataAveraged:
+            for key, value in data.items():
+                compareData[key].append(value)
+        for key, values in compareData.items():
+            difference = values[0] - values[1]
+            compareData[key].append(difference)
+        print("Data in the form: {'band': [before, after, difference]}")
+        pp.pprint(compareData)
 
 
 mindfulnessData = BasicBrainData(beforePracticeRawData, afterPracticeRawData)
