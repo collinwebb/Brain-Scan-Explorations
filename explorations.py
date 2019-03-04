@@ -102,7 +102,8 @@ class BasicBrainData(object):
         compareData = defaultdict(list)
         beforeDataAveraged = self.getAveragesOverBrainWaves(self.before)
         afterDataAveraged = self.getAveragesOverBrainWaves(self.after)
-        #TODO: break printing out into seperate function; make pretty
+        #TODO 1: break printing out into seperate function
+        #TODO 2: graph
         for data in beforeDataAveraged, afterDataAveraged:
             for key, value in data.items():
                 compareData[key].append(value)
