@@ -8,6 +8,15 @@ In a more finilized version, one would upload any neural oscillation data set(s)
 and analyze them in a few ways.
 """
 
+######################
+## Important DOTOs:
+# 1 - visualize the raw data to make sure my current method of finding the difference
+#     is appropriate. The averaged data I see on the app would be, but I'm basically
+#     taking the integral of sets of brainwave frequencies, and if they are centered
+#     on zero, then my data is meaningless. I would need to pull the intencity of the
+#     brainwaves and average those.
+######################
+
 from mne import Epochs, find_events, set_log_level
 from mne.io import read_raw_edf
 
